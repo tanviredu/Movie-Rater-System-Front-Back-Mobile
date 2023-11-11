@@ -1,5 +1,8 @@
 from pathlib import Path
 import os
+from datetime import timedelta
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 MEDIA_DIR = os.path.join(BASE_DIR,'media')
@@ -27,9 +30,24 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "bookapp",
     "rest_framework",
+    "rest_framework_simplejwt",
     "django_cleanup",
     "corsheaders"
 ]
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+}
+
+
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
@@ -44,6 +62,10 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_ALLOW_ALL = True
 ROOT_URLCONF = "BookProject.urls"
+
+
+
+
 
 TEMPLATES = [
     {
