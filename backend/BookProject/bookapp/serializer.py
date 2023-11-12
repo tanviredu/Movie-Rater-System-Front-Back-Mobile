@@ -1,6 +1,14 @@
 from rest_framework import serializers
 from bookapp.models import Book, BookNumber, Character, Author
+from django.contrib.auth.models import User
 
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username','password']
+        extra_kwargs = {'password':{'write_only':True,'required':True},"style":{"input_type":"password"}}
+        
 
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
