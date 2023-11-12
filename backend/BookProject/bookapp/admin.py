@@ -1,5 +1,5 @@
 from django.contrib import admin
-from bookapp.models import Book,BookNumber,Character
+from bookapp.models import Book,BookNumber,Character,Author
 from django.utils.html import format_html
 
 
@@ -24,7 +24,14 @@ class BookAdmin(admin.ModelAdmin):
         model = Book
 
 class BookNumberAdmin(admin.ModelAdmin):
-    list_display = ["id","isbn_10","isbn_13"]
+    list_display = ["id","display_book_name","isbn_10","isbn_13"]
+    
+    def display_book_name(self,obj):
+        if obj.book and obj.book.title:
+            return obj.book.title
+        else:
+            return "N/A"
+    
     class Meta:
         model = BookNumber
         
@@ -39,7 +46,19 @@ class CharacterAdmin(admin.ModelAdmin):
             return "N/A"
     class Meta:
         model = Character
+        
+
+class AuthorAdmin(admin.ModelAdmin):
+    list_display = ['id','name','surname','display_books']
+    
+    def display_books(self,obj):
+        return ",".join([book.title for book in obj.books.all()])
+
+    display_books.short_description = "Books"
+    class Meta:
+        model = Author
 
 admin.site.register(Book,BookAdmin)
 admin.site.register(BookNumber,BookNumberAdmin)
 admin.site.register(Character,CharacterAdmin)
+admin.site.register(Author,AuthorAdmin)
