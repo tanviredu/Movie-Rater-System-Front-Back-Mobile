@@ -6,6 +6,25 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 class Movie(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(max_length=500)
+    
+    def number_of_ratings(self):
+        ratings = Rating.objects.filter(movie=self)
+        return len(ratings)
+    
+    def avg_rating(self):
+        sum = 0
+        ratings = Rating.objects.filter(movie = self)
+        if len(ratings) <=0:
+            return 0
+        
+        for item in ratings:
+            sum+=item.stars
+        return sum/len(ratings)
+        
+        
+        
+    
+    
 
     def __str__(self):
         return self.title

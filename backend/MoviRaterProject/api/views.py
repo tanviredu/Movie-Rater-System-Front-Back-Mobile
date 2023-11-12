@@ -1,13 +1,38 @@
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status,permissions
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from api.models import Movie, Rating
-from api.serializer import MovieSerializer, RatingSerializer
+from api.serializer import MovieSerializer, RatingSerializer,UserSerializer
+from django.contrib.auth.models import User
 
+
+## i want list view allowany
+## detail view Isauthenticated
+## rate_movie Is authticated
+## rest of them Is autheticated
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer    
+    
+    
+## 
 
 class MovieViewSet(viewsets.ModelViewSet):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
+
+    ## override the get permission method
+    def get_permissions(self):
+        if self.action == "list":
+            return [permissions.AllowAny()]
+        elif self.action in ["retrieve","rate_movie"]:
+            return [permissions.IsAuthenticated()]
+        elif self.action in ["update","destroy"]:
+            return [permissions.IsAuthenticated()]
+        else:
+            return super().get_permissions()
+        
+
 
     ## detail = True mens get by id te kaj korbe
     ## specfic movie
