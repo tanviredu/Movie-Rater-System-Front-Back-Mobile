@@ -5,7 +5,7 @@ from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-MEDIA_DIR = os.path.join(BASE_DIR,'media')
+MEDIA_DIR = os.path.join(BASE_DIR, "media")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -32,12 +32,11 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
     "django_cleanup",
-    "corsheaders"
+    "corsheaders",
 ]
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     )
 }
 
@@ -46,7 +45,6 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
-
 
 
 MIDDLEWARE = [
@@ -62,9 +60,6 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_ALLOW_ALL = True
 ROOT_URLCONF = "BookProject.urls"
-
-
-
 
 
 TEMPLATES = [
@@ -133,7 +128,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 MEDIA_ROOT = MEDIA_DIR
-MEDIA_URL  = "/media/"
+MEDIA_URL = "/media/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

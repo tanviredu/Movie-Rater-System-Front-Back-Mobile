@@ -3,11 +3,9 @@ from bookapp.views import BookViewSet
 
 
 router = routers.DefaultRouter()
-router.register("books",BookViewSet)
+router.register("books", BookViewSet)
 
 
-urlpatterns = [
-    
-]
+urlpatterns = []
 
-urlpatterns+= router.urls
+urlpatterns += router.urls
